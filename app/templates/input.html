@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--Basic header tags to establish character sets and Browser use-->
+  <meta charset='UTF-8'>
+  <meta http-equiv='X-UA-Compatible' content="IE=edge">
+  <meta name="description" content="HTML page for User to input variables for visualization display">
+  <meta name="author" content="Rich Gude">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon.png">
+
+  <!--Header tag for proper rending on smaller screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Bootstrap core CSS (notice Flask JINJA syntax for calling files) -->
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/input.css') }}" rel="stylesheet">
+
+  <title>Operation Visualization</title>
+
+</head>
+<body>
+    <!-- Header Bar -->
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3">XXXXXXX</a>
+    </header>
+
+    <!-- Description of the App for Individuals -->
+    <div class="container display">
+        <h1 class='display-4'>Operation Visualization</h1>
+        <p class="lead">A visualization tool for XXX</p>
+        <hr class="my-4">
+        <p>INSERT MORE DETAILED DESCRIPTION HERE</p>
+    </div>
+
+    <!-- User Input Form -->
+    <div class="container data-entry">
+        <form method="POST" enctype="multipart/form-data" id="miss_form">
+            <!-- Row 1 Operation Name -->
+            <div class="row">
+                
+                <div class="form-group col-2"></div>
+                <div class="form-group col-8">
+                    <h4>Operation Name</h4>
+                    {{ form.oper_name(class='form-control', id='op_name', **{'placeholder': 'SkyTerror', 'aria-describedby':'opHelpBlock'}) }}
+                    <small id="opHelpBlock" class="form-text text-muted">
+                        The name of the operation that will appear at the top of the infographic
+                    </small>
+                </div>
+                <div class="form-group col-2"></div>
+            </div><br>
+            <!-- Row 2 Transit Time -->
+            <div class="row"><hr>
+                <h4>Operation Transit Time</h4>
+                <div class="form-group col-6">
+                    {{ form.trans_str.label(class='form-control-label')  }}
+                    {{ form.trans_str(class='form-control', id='trans_start', **{'aria-describedby':'transStartHelp'}) }}
+                    <small id="transStartHelp" class="form-text text-muted">
+                        The Zulu start time of the transit phase of the operation
+                    </small>
+                </div>
+                <div class="form-group col-6">
+                    {{ form.trans_end.label(class='form-control-label')  }}
+                    {{ form.trans_end(class='form-control', id='trans_end', **{'aria-describedby':'transEndHelp'}) }}
+                    <small id="transEndHelp" class="form-text text-muted">
+                        The Zulu end time of the transit phase of the operation
+                    </small>
+                </div>
+            </div><br>
+            <!-- Row 3 Mission Time -->
+            <div class="row"><hr>
+                <h4>Operation Mission Time</h4>
+                <div class="form-group col-6">
+                    {{ form.missn_str.label(class='form-control-label')  }}
+                    {{ form.missn_str(class='form-control', id='miss_start', **{'aria-describedby':'missStartHelp'}) }}
+                    <small id="missStartHelp" class="form-text text-muted">
+                        The Zulu start time of the mission phase of the operation
+                    </small>
+                </div>
+                <div class="form-group col-6">
+                    {{ form.missn_end.label(class='form-control-label')  }}
+                    {{ form.missn_end(class='form-control', id='miss_end', **{'aria-describedby':'missEndHelp'}) }}
+                    <small id="missEndHelp" class="form-text text-muted">
+                        The Zulu end time of the mission phase of the operation
+                    </small>
+                </div>
+            </div><br>
+            <!-- Row 4 Data File -->
+            <div class="row"><hr>
+                <div class="form-group col-2"></div>
+                <div class="form-group col-8">
+                    <h4>XXX Excel Upload</h4>                    
+                    {{ form.oper_data(class='custom-file-input', id='dataFile', **{'aria-describedby':'dataFileHelp'}) }}
+                    <small id="dataFileHelp" class="form-text text-muted">
+                        The XXX file supplied by XXX, used to generate the view
+                    </small><br>
+                    <span class="validation_error">{{ ', '.join(form.oper_data.errors) }}</span>
+                </div>
+                <div class="form-group col-2"></div>
+            </div><br>
+
+            <!-- Row 5 Time Window (Currently Disabled: Functionality to be added) -->
+            <div class="row"><hr>
+                <h4>Display Window Time</h4>
+                <div class="form-group col-6">
+                    <label for="wind_start">Window Start</label>
+                    <input type="text" class="form-control" id="wind_start" aria-describedby="windStartHelp" placeholder='XXX' disabled>
+                    <small id="windStartHelp" class="form-text text-muted">
+                        The Zulu start time of the display window
+                    </small>
+                </div>
+                <div class="form-group col-6">
+                    <label for="wind_end">Window End</label>
+                    <input type="text" class="form-control" id="wind_end" aria-describedby="windEndHelp" placeholder='XXX' disabled>
+                    <small id="windEndHelp" class="form-text text-muted">
+                        The Zulu end time of the display window
+                    </small>
+                </div>
+            </div><hr>
+
+            <!-- Submit Button -->
+            <div class="col text-center">
+                <button type="submit" class="btn btn-dark">Generate View</button>
+            </div>
+        </form>
+    </div>
+  
+  <main>
+  
+  <!-- FOOTER -->
+  <footer class="fixed-bottom text-center">
+    <p>Data contained in this application may contain XXXXX </p>
+  </footer>
+
+  </main>
+  
+  <!-- Load final scripting of Boostrap elements -->
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/input.js') }}"></script>
+
+</body>
+</html>

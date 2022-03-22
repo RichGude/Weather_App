@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--Basic header tags to establish character sets and Browser use-->
+  <meta charset='UTF-8'>
+  <meta http-equiv='X-UA-Compatible' content="IE=edge">
+  <meta name="description" content="HTML page for User to input variables for visualization display">
+  <meta name="author" content="Rich Gude">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon.png">
+
+  <!--Header tag for proper rending on smaller screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Bootstrap core CSS (notice Flask JINJA syntax for calling files) -->
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/input.css') }}" rel="stylesheet">
+
+  <title>Operation Visualization</title>
+
+</head>
+<body>
+    <!-- Header Bar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand">Variable Input</a>
+        </div>
+    </nav>
+
+    <!-- Description of the App for Individuals -->
+    <div class="container">
+        <h1 class='display-4'>Display Variables</h1>
+        <hr class="my-4">
+        <p>{{ user_data.oper_name }}</p>
+        <p>{{ user_data.missn_str }}</p>
+        <p>{{ user_data.trans_end }}</p>
+        <!-- Cast a value to a string -->
+        <p>{{ user_data.missn_end | string }}</p>
+        <p>{{ user_data.oper_name }}</p>
+    </div>
+  
+  <main>
+  
+  <!-- FOOTER -->
+  <footer class="container-fluid footBox">
+    <p>Data contained in following application may contain XXXXX </p>
+  </footer>
+
+  </main>
+  
+  <!-- Load final scripting of Boostrap elements -->
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/input.js') }}"></script>
+
+</body>
+</html>
